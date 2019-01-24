@@ -48,3 +48,16 @@ Testy integracyjne inicjalizują embedded instancję MongoDB, inicjalizują apli
 * https://github.com/ReactiveMongo/ReactiveMongo
 * https://github.com/typelevel/cats
 * https://github.com/flapdoodle-oss/de.flapdoodle.embed.mongo 
+
+
+## Frontend
+Frontend został napisany w języku React. 
+
+### Użyte biblioteki
+*npm react
+*npm react-DOM
+*npm react-transition-group
+*npm babel
+*npm backstrap
+*npm react-subpage
+*npm axios
