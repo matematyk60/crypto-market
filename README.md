@@ -15,10 +15,12 @@ Aplikacja wystawia REST'owe API na porcie `8080`. Plik swagger z dokumentacją A
 jak również pod tym [adresem](https://app.swaggerhub.com/apis/matematyk60/crypto-market/1.0.0#/). 
 
 #### Opis działania systemu
-By użytkownik mógł korzystać z naszego systemu, musi zarejestrować się udając się pod odpowiedni endpoint. W odpowiedzi otrzymuje
-token JWT, który dołącza później do każdego zapytania w nagłówku HTTP `Authorization`. Użytkownik może dodawać środki na konto
-w danej walucie. Może zamieszczać oferty wymiany walut, a później z pasującymi ofertami dokonywać wymiany. 
-System od każdej transakcji pobiera 5 % prowizji. Oprócz standardowych parametrów transakcji takich jak kwota, kurs, minimalna wymieniona kwota, przy tworzeniu oferty użytkownik ma możliwość utworzenia warunku wykonania, np.: tylko wtedy, gdy kurs BitCoin nie będzie mniejszy niż 3500 USD. W tym celu system komunikuje się poprzez zapytanie HTTP z serwisem `blockchain.info`.
+By użytkownik mógł korzystać z naszego systemu, musi zarejestrować się udając się pod odpowiedni endpoint. W odpowiedzi otrzymuje token JWT, który dołącza później do każdego zapytania w nagłówku HTTP `Authorization`. 
+Użytkownik może dodawać środki na konto w danej walucie. Może zamieszczać oferty wymiany walut, a później z pasującymi ofertami dokonywać wymiany. System od każdej transakcji pobiera 5 % prowizji.
+
+Opcjonalnie, oprócz standardowych parametrów transakcji takich jak kwota, kurs, minimalna wymieniona kwota, przy tworzeniu oferty użytkownik ma możliwość utworzenia warunku wykonania, np.: tylko wtedy, gdy kurs BitCoin nie będzie mniejszy niż 3500 USD. W tym celu system komunikuje się poprzez zapytanie HTTP z serwisem `blockchain.info`.
+
+Oprócz manualnego dokonywania transakcji, system autmatycznie znajduje pasujące do siebie transakcje, oraz przeprowadza ich wymianę. 
 
 #### Opis struktury projektu
 Kod podzielony jest na trzy główne moduły:
@@ -31,9 +33,9 @@ Aplikacja do ustępniania API HTTP wykorzystuje bibliotekę Akka HTTP, a do poł
 #### Testowanie
 Wszystkie funkcjonalności aplikacji są testowane za pomocą biblioteki ScalaTest oraz Akka Http. Testy jednostkowe znajdują się w katalogu `/backend/src/test/scala/com/market/unit`, 
 a integracyjne w `/backend/src/test/scala/com/market/e2e`. Pokrycie kodu aplikacji testami to odpowiednio:
-* na poziomie klas: 66%
-* na poziomie metod: 88%
-* na poziomie linii kodu: 87%
+* na poziomie klas: 67%
+* na poziomie metod: 93%
+* na poziomie linii kodu: 92%
 
 (wygenerowane za pomocą narzędzia `Coverage` dostępnego w środowisku IDE `Intellij IDEA Community`
 
