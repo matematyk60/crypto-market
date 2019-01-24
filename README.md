@@ -56,7 +56,7 @@ Frontend został napisany w języku React.
 ### Użyte biblioteki
 *npm react
 
-*npm react-DOM
+*npm react-dom
 
 *npm react-transition-group
 
