@@ -13,5 +13,5 @@ services:
       - "8080:8080"
     volumes:
       - type: bind
-        source: /Users/matematyk60/keys
+        source: #path to your keys directory
         target: /keys
