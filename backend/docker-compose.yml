@@ -1,0 +1,17 @@
+version: '3.2'
+
+services:
+  mongo:
+    image: mongo:3.2
+
+  crypto-market-backend:
+    image: matematyk60/crypto-market-backend:0.01
+    environment:
+      PRIVATE_KEY_FILE: /keys/private.der
+      PUBLIC_KEY_FILE: /keys/public.der
+    ports:
+      - "8080:8080"
+    volumes:
+      - type: bind
+        source: /Users/matematyk60/keys
+        target: /keys

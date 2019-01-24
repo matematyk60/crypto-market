@@ -1,0 +1,372 @@
+swagger: '2.0'
+info:
+  description: 'This is an API to crypto market'
+  version: 1.0.0
+  title: Crypto Market Backend
+tags:
+  - name: authentication
+  - name: user
+  - name: offer
+schemes:
+  - http
+paths:
+  /user/register:
+    post:
+      tags:
+        - authentication
+      summary: Register new user
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: User registered successfully
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+
+  /user/login:
+    post:
+      tags:
+        - authentication
+      summary: Authenticate already registered user
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: User authenticated successfully
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+        401:
+          description: Authentication failed
+
+  /user/me/funds:
+    get:
+      tags:
+        - user
+      security:
+        - Bearer: []
+      description: |
+        Currencies:
+        BitCoin, Litecoin
+      summary: Get user's funds info
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: User's funds info
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                currency:
+                  type: string
+                  enum:
+                    - BitCoin
+                    - Litecoin
+                amount:
+                  type: number
+        401:
+          description: Authentication failed
+    post:
+      tags:
+        - user
+      security:
+        - Bearer: []
+      description: |
+        Currencies:
+          BitCoin, Litecoin
+      summary: Add funds to application's wallet
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              currency:
+                type: string
+                enum:
+                  - BitCoin
+                  - Litecoin
+              amount:
+                type: number
+      responses:
+        200:
+          description: Funds added successfully
+        401:
+          description: Authentication failed
+  /offers:
+    get:
+      tags: [offer]
+      security:
+        - Bearer: []
+      summary: Get all offers available on market
+      produces:
+        - application/json
+      responses:
+        200:
+          description: |
+            Currencies:
+            BitCoin, Litecoin
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                offerId:
+                  type: string
+                  example: "scxzx-eeew-212"
+                userId:
+                  type: integer
+                  example: 22
+                finished:
+                  type: boolean
+                  example: true
+                selling:
+                  type: string
+                  enum:
+                    - BitCoin
+                    - Litecoin
+                buying:
+                  type: string
+                  enum:
+                    - BitCoin
+                    - Litecoin
+                amount:
+                  type: number
+                  example: 100
+                minimalRateSellingToBuying:
+                  type: number
+                  example: 1.5
+                minimumSelled:
+                  type: number
+                  example: 10
+                exchangeIf:
+                  type: object
+                  properties:
+                    currency:
+                      type: string
+                      enum:
+                        - BitCoin
+                        - Litecoin
+                    minimumRate:
+                      type: number
+                      example: 10000
+        401:
+          description: Authentication failed
+
+  /offer/{offerId}:
+    get:
+      tags: [offer]
+      security:
+        - Bearer: []
+      summary: Get all offers available on market
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: offerId
+          type: string
+          required: true
+      responses:
+        200:
+          description: |
+            Currencies:
+            BitCoin, Litecoin
+          schema:
+
+            type: object
+            properties:
+              offerId:
+                type: string
+                example: "scxzx-eeew-212"
+              userId:
+                type: integer
+                example: 22
+              finished:
+                type: boolean
+                example: true
+              selling:
+                type: string
+                enum:
+                  - BitCoin
+                  - Litecoin
+              buying:
+                type: string
+                enum:
+                  - BitCoin
+                  - Litecoin
+              amount:
+                type: number
+                example: 100
+              minimalRateSellingToBuying:
+                type: number
+                example: 1.5
+              minimumSelled:
+                type: number
+                example: 10
+              exchangeIf:
+                type: object
+                properties:
+                  currency:
+                    type: string
+                    enum:
+                      - BitCoin
+                      - Litecoin
+                  minimumRate:
+                    type: number
+                    example: 10000
+        404:
+          description: No such offer
+        401:
+          description: Authentication failed
+  /offer:
+    post:
+      tags: [offer]
+      security:
+        - Bearer: []
+      summary: Add new currency exchange offer
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      description: |
+        Currencies:
+          BitCoin, Litecoin
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              selling:
+                type: string
+                enum:
+                  - BitCoin
+                  - Litecoin
+              buying:
+                type: string
+                enum:
+                  - Litecoin
+                  - BitCoin
+              amount:
+                type: number
+                example: 100
+              minimalRateSellingToBuying:
+                type: number
+                example: 1.5
+              minimumSelled:
+                type: number
+                example: 10
+              exchangeIf:
+                type: object
+                properties:
+                  currency:
+                    type: string
+                    enum:
+                      - BitCoin
+                      - Litecoin
+                  minimumRate:
+                    type: number
+                    example: 10000
+      responses:
+        200:
+          description: Offer added successfully
+        "422":
+          description: |
+            Errors:
+                    currencies_must_differ
+                    amount_must_be_positive
+                    rate_must_be_positive
+                    minimum_selled_must_be_positive
+                    minimum_rate_must_be_positive
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: string
+                  enum:
+                    - currencies_must_differ
+        401:
+          description: Authentication failed
+  /offer/{offerId}/exchange:
+    post:
+      tags: [offer]
+      security:
+        - Bearer: []
+      summary: Exchange with offer which id was specified in path
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: offerId
+          required: true
+          type: string
+      responses:
+        200:
+          description: Exchanged with offer successfully
+        404:
+          description: No such offer
+        "422":
+          description: |
+            Errors:
+                    users_offers_dont_match
+                    offer_already_finished
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  type: string
+                  enum:
+                    - users_offers_dont_match
+        401:
+          description: Authentication failed
+
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header

@@ -1,0 +1,18 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{ISO8601} %-5level %logger{36} %X{sourceThread} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="ru.yandex" level="OFF"/>
+    <logger name="de.flapdoodle" level="ERROR"/>
+    <logger name="slick" level="ERROR"/>
+    <logger name="slick.compiler" level="ERROR"/>
+    <logger name="slick.relational.ResultConverterCompiler" level="ERROR"/>
+    <logger name="slick.jdbc.JdbcBackend.benchmark" level="ERROR"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
