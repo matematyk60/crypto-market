@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NavBar from "./components/navbar";
 import "./App.css";
 import Counters from "./components/counters";
+import MyOffers from "./components/myoffers";
 import axios from "axios";
 
 class App extends Component {
@@ -62,7 +63,13 @@ class App extends Component {
           onReset={this.handleReset}
           user={this.state.user}
         />
-        <main>{this.logged(this.props)}</main>
+        <MyOffers
+          user={this.state.user}
+          counters={this.state.counters}
+          onDecrement={this.handleDecrement}
+          onIncrement={this.handleIncrement}
+          onDelete={this.handleDelete}
+        />{" "}
       </React.Fragment>
     );
   }
@@ -102,15 +109,19 @@ class App extends Component {
   handleBuy = () => {};
 
   logged(props) {
-    return (
-      <Counters
-        user={this.state.user}
-        counters={this.state.counters}
-        onDecrement={this.handleDecrement}
-        onIncrement={this.handleIncrement}
-        onBuy={this.handleBuy}
-      />
-    );
+    switch (this.state.site) {
+      case "offers": {
+        return (
+          <Counters
+            user={this.state.user}
+            counters={this.state.counters}
+            onDecrement={this.handleDecrement}
+            onIncrement={this.handleIncrement}
+            onBuy={this.handleBuy}
+          />
+        );
+      }
+    }
   }
 
   mo = () => {
@@ -121,4 +132,5 @@ class App extends Component {
     return counters;
   };
 }
+
 export default App;
